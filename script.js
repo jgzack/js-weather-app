@@ -46,13 +46,13 @@ function displayWeather(data) {
     weatherInfoDiv.innerHTML = `<p>${data.message}</p>`;
   } else {
     const cityName = data.name;
-    const temperature = Math.round(data.main.temp - 273.15); // Convert to Celsius
+    const temperature = Math.round(((data.main.temp - 273.15) * 9) / 5 + 32); // Convert to Fahrenheit
     const description = data.weather[0].description;
     const iconCode = data.weather[0].icon;
     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
 
     const temperatureHTML = `
-            <p>${temperature}°C</p>
+            <p>${temperature}°F</p> <!-- Fahrenheit -->
         `;
 
     const weatherHtml = `
@@ -77,7 +77,7 @@ function displayHourlyForecast(hourlyData) {
   next24Hours.forEach((item) => {
     const dateTime = new Date(item.dt * 1000); // Convert timestamp to milliseconds
     const hour = dateTime.getHours();
-    const temperature = Math.round(item.main.temp - 273.15); // Convert to Celsius
+    const temperature = Math.round(((item.main.temp - 273.15) * 9) / 5 + 32); // Convert to Fahrenheit
     const iconCode = item.weather[0].icon;
     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -85,7 +85,7 @@ function displayHourlyForecast(hourlyData) {
             <div class="hourly-item">
                 <span>${hour}:00</span>
                 <img src="${iconUrl}" alt="Hourly Weather Icon">
-                <span>${temperature}°C</span>
+                <span>${temperature}°F</span> <!-- Fahrenheit -->
             </div>
         `;
 
